@@ -1,0 +1,37 @@
+﻿model Projet_E_commerce.Models.User
+@{
+    ViewData["Title"] = "Paramètres de l'utilisateur";
+}
+
+<h1>Paramètres de l'utilisateur</h1>
+
+<form method="post" asp-action="UpdateUser" asp-controller="Settings">
+    <div class="form-group">
+        <label for="Username">Nom d'utilisateur</label>
+        <input type="text" class="form-control" id="Username" name="Username" value="@Model.Username" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Mot de passe actuel</label>
+        <input type="text" class="form-control" id="Password" name="Password" value="@Model.Password"/>
+    </div>
+
+    
+
+    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+</form>
+
+@foreach (var error in ViewData.ModelState.Values)
+{
+    foreach (var e in error.Errors)
+    {
+        <div class="alert alert-danger">
+            @e.ErrorMessage
+        </div>
+    }
+}

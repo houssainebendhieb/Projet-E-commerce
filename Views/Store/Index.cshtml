@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Projet_E_commerce.Models.Product>
+
+@{
+    ViewData["Title"] = "Store";
+}
+
+<h1>Bienvenue, @ViewData["Username"]!</h1>
+<p>Filtrez les produits par catégorie ou par plage de prix :</p>
+<a href="/Panier">Panier</a>
+
+<form method="get" action="">
+
+    <label for="minPrice">Prix minimum :</label>
+    <input type="number" step="0.01" name="minPrice" id="minPrice" value="" />
+
+    <label for="maxPrice">Prix maximum :</label>
+    <input type="number" step="0.01" name="maxPrice" id="maxPrice" value="" />
+
+    <label for="category">Catégorie :</label>
+    <select name="category" id="category">
+        <option value="">Toutes les catégories</option>
+        @foreach (var cat in ViewBag.Categories)
+        {
+             
+        <option value="@cat" >@cat</option>
+        }
+    </select>
+
+    <button type="submit">Filtrer</button>
+</form>
+
+<hr />
+
+<h2>Liste des produits</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Nom du produit</th>
+            <th>Prix</th>
+            <th>Catégorie</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <!-- Image avec un design attrayant -->
+                <td class="product-image-cell">
+                    <img src="@product.ImageUrl" alt="@product.Name" class="product-image" style="max-width:300px; max-height:300px;" />
+                </td>
+
+                <!-- Nom du produit avec un lien stylé -->
+                <td class="product-name-cell">
+                    <a asp-controller="ProductDetail" asp-action="Details" asp-route-id="@product.Id" class="product-link">
+                        @product.Name
+                    </a>
+                </td>
+
+                <!-- Prix mis en évidence -->
+                <td class="product-price-cell">
+                    <span class="product-price">@product.Price.ToString("C")</span>
+                </td>
+
+                <!-- Catégorie stylée -->
+                <td class="product-category-cell">
+                    <span class="product-category">@product.Category</span>
+                </td>
+
+                <!-- Description avec gestion des longueurs -->
+                <td class="product-description-cell">
+                    <p class="product-description">@product.Description</p>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Passer à la Caisse";
+    var totalPrice = ViewBag.TotalPrice;
+}
+
+<h1>Passer à la Caisse</h1>
+
+<form asp-controller="Panier" asp-action="Pay" method="post">
+    <div>
+        <label>Méthode de Paiement :</label><br>
+        <select name="PaymentMethod" required>
+            <option value="Visa">Visa</option>
+            <option value="MasterCard">MasterCard</option>
+        </select>
+    </div>
+    <div>
+        <label>Numéro de Carte :</label>
+        <input type="text" name="CardNumber" required minlength="16" maxlength="16" />
+    </div>
+    <div>
+        <label>Date d'expiration :</label>
+        <input type="month" name="ExpirationDate" required />
+    </div>
+    <div>
+        <label>CVV :</label>
+        <input type="text" name="CVV" required minlength="3" maxlength="3" />
+    </div>
+    <div>
+        <label>Total à Payer :</label>
+        <strong>@totalPrice.ToString("C")</strong>
+    </div>
+    <button type="submit" class="btn btn-primary">Payer</button>
+</form>

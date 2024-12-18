@@ -1,0 +1,58 @@
+﻿
+@model IEnumerable<Projet_E_commerce.Models.Panier>
+
+@{
+    ViewData["Title"] = "Votre panier";
+}
+
+<h1>Votre panier</h1>
+
+@if (!Model.Any())
+{
+    <p>Votre panier est vide.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Nom du produit</th>
+                <th>Prix unitaire</th>
+                <th>Quantité</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.Product.ImageUrl" alt="@item.Product.Name" style="width:100px; height:auto;" />
+                    </td>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Product.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@(item.Product.Price * item.Quantity)</td>
+                    <td>
+                        <form method="post" asp-controller="Panier" asp-action="Edit" style="display:inline;">
+                            <input type="hidden" name="cartItemId" value="@item.Id" />
+                            <input type="number" name="newQuantity" value="@item.Quantity" min="1" style="width:60px;" />
+                            <button type="submit">Modifier</button>
+                        </form>
+                        <form method="post" asp-controller="Panier" asp-action="Delete" style="display:inline;">
+                            <input type="hidden" name="cartItemId" value="@item.Id" />
+                            <button type="submit" style="color:red;">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3>Total général : @Model.Sum(item => item.Product.Price * item.Quantity).ToString("C")</h3>
+
+    <a href="/Store" class="btn btn-primary">Continuer vos achats</a>
+    <a  href="/Panier/Checkout" class="btn btn-success">Passer à la caisse</a>
+}

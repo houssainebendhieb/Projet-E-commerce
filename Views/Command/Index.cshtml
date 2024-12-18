@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Mes Commandes";
+}
+
+<h1>Mes Commandes</h1>
+
+@if (Model.Count==0)
+{
+    <p>Vous n'avez aucune commande.</p>
+}
+else
+{
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Numéro de Commande</th>
+                <th>Date de Commande</th>
+                <th>Total</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Commande order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.DateCommande.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                    <td>@order.TotalPrice.ToString("C")</td>
+                    <td>En cours</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

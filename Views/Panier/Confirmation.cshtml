@@ -1,0 +1,8 @@
+﻿@model Projet_E_commerce.Models.Commande
+
+<h1>Confirmation de Commande</h1>
+<p>Merci pour votre achat !</p>
+<p><strong>Numéro de Commande :</strong> @Model.Id</p>
+<p><strong>Total :</strong> @Model.TotalPrice.ToString("C")</p>
+<p><strong>Date :</strong> @Model.DateCommande.ToString("dd/MM/yyyy HH:mm")</p>
+<p><strong>Méthode de Paiement :</strong> @Model.PaymentMethod</p>
